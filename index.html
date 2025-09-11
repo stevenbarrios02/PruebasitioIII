@@ -613,5 +613,71 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+	<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDzYsSI39pypNk_Ia1DYiot2sa0Y4ig_Cg",
+      authDomain: "mi-proyecto-76657.firebaseapp.com",
+      databaseURL: "https://mi-proyecto-76657-default-rtdb.firebaseio.com",
+      projectId: "mi-proyecto-76657",
+      storageBucket: "mi-proyecto-76657.firebasestorage.app",
+      messagingSenderId: "846950536481",
+      appId: "1:846950536481:web:bc8afa98a220b88fcc9a60"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Referencia a la tabla usuarios
+    const usuariosRef = ref(db, "usuarios");
+
+    // Capturar formulario y guardar en Firebase
+    const form = document.getElementById("userForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let nombre = document.getElementById("nombre").value;
+      let email = document.getElementById("email").value;
+      let mensaje = document.getElementById("mensaje").value;
+      let estado = document.getElementById("estado").value;
+
+      push(usuariosRef, {
+        nombre: nombre,
+        email: email,
+        mensaje: mensaje,
+        estado: estado
+      }).then(() => {
+        alert("✅ Usuario guardado");
+        form.reset();
+      }).catch((error) => {
+        alert("❌ Error: " + error);
+      });
+    });
+
+    // Leer usuarios en tiempo real
+    const usuariosBody = document.getElementById("usuariosBody");
+
+    onValue(usuariosRef, (snapshot) => {
+      usuariosBody.innerHTML = ""; // limpiar antes de volver a pintar
+      snapshot.forEach((childSnapshot) => {
+        const usuario = childSnapshot.val();
+
+        let row = `
+          <tr>
+            <td>${usuario.nombre}</td>
+            <td>${usuario.email}</td>
+            <td>${usuario.mensaje}</td>
+            <td>${usuario.estado}</td>
+          </tr>
+        `;
+        usuariosBody.innerHTML += row;
+      });
+    });
+  </script>
   </body>
 </html>
+
