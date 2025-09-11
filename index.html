@@ -184,29 +184,34 @@
 
         <!-- Contact -->
         <article id="contact">
-          <h2 class="major">Contacto</h2>
-          <form method="post" action="#">
-            <div class="fields">
-              <div class="field half">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" />
-              </div>
-              <div class="field half">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" />
-              </div>
-              <div class="field">
-                <label for="message">Mensaje</label>
-                <textarea name="message" id="message" rows="4"></textarea>
-              </div>
-            </div>
-            <ul class="actions">
-              <li>
-                <input type="submit" value="Enviar Mensaje" class="primary" />
-              </li>
-              <li><input type="reset" value="Limpiar" /></li>
-            </ul>
-          </form>
+  <h2 class="major">Contacto</h2>
+  <form id="userForm">
+    <div class="fields">
+      <div class="field half">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" required />
+      </div>
+      <div class="field half">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="field">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="estado">Estado</label>
+        <select id="estado" required>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+    </div>
+    <ul class="actions">
+      <li><input type="submit" value="Enviar" class="primary" /></li>
+      <li><input type="reset" value="Limpiar" /></li>
+    </ul>
+  </form>
           <ul class="icons">
             <li>
               <a href="https://twitter.com/ecosia" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"
@@ -680,4 +685,5 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   </script>
   </body>
 </html>
+
 
